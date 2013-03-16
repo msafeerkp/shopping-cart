@@ -4,5 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
         http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
 	start-state="start">
-	<view-state id="start" view="test.xhtml"/>
+	<view-state id="start" view="test.xhtml">
+		<on-entry>
+			<evaluate expression="city.addCity()"></evaluate>
+		</on-entry>
+	</view-state>
 </flow>
