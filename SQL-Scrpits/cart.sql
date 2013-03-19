@@ -10,7 +10,7 @@ USE `Spinach` ;
 -- Table `Spinach`.`Person`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`Person` (
-  `person_id` INT NOT NULL AUTO_INCREMENT ,
+  `person_id` BINARY(16) NOT NULL ,
   `firstname` VARCHAR(32) NULL ,
   `lastname` VARCHAR(32) NULL ,
   `email` VARCHAR(128) NOT NULL ,
@@ -30,13 +30,13 @@ SHOW WARNINGS;
 -- Table `Spinach`.`Customer`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`Customer` (
-  `customer_id` INT NOT NULL AUTO_INCREMENT ,
+  `customer_id` BINARY(16) NOT NULL ,
   `newsletter` CHAR(1) NOT NULL DEFAULT 'N' ,
   `ip_registration_newsletter` VARCHAR(15) NULL ,
   `created_on` DATETIME NOT NULL ,
   `modified_on` DATETIME NOT NULL ,
   `special_offer_from_partner` CHAR(1) NOT NULL DEFAULT 'N' ,
-  `person_id` INT NOT NULL ,
+  `person_id` BINARY(16) NOT NULL ,
   PRIMARY KEY (`customer_id`) ,
   INDEX `fk_Customer_Person_idx` (`person_id` ASC) ,
   CONSTRAINT `fk_Customer_Person`
@@ -53,13 +53,13 @@ SHOW WARNINGS;
 -- Table `Spinach`.`Address`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`Address` (
-  `address_id` INT NOT NULL AUTO_INCREMENT ,
+  `address_id` BINARY(16) NOT NULL ,
   `street_address` VARCHAR(220) NULL ,
   `landmark` VARCHAR(45) NULL ,
   `pincode` VARCHAR(12) NULL ,
   `phone_number` VARCHAR(16) NULL ,
   `land_line` VARCHAR(16) NULL ,
-  `customer_id` INT NULL ,
+  `customer_id` BINARY(16) NULL ,
   `city` VARCHAR(45) NULL ,
   `state` VARCHAR(45) NULL ,
   `country` VARCHAR(45) NULL ,
@@ -79,7 +79,7 @@ SHOW WARNINGS;
 -- Table `Spinach`.`Country`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`Country` (
-  `country_id` INT NOT NULL AUTO_INCREMENT ,
+  `country_id` BINARY(16) NOT NULL ,
   `country_name` VARCHAR(45) NOT NULL ,
   PRIMARY KEY (`country_id`) )
 ENGINE = InnoDB
@@ -91,9 +91,9 @@ SHOW WARNINGS;
 -- Table `Spinach`.`State`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`State` (
-  `state_id` INT NOT NULL AUTO_INCREMENT ,
+  `state_id` BINARY(16) NOT NULL ,
   `state_name` VARCHAR(45) NULL ,
-  `country_id` INT NOT NULL ,
+  `country_id` BINARY(16) NOT NULL ,
   PRIMARY KEY (`state_id`) ,
   INDEX `fk_State_Country1_idx` (`country_id` ASC) ,
   CONSTRAINT `fk_State_Country1`
@@ -109,9 +109,9 @@ SHOW WARNINGS;
 -- Table `Spinach`.`City`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`City` (
-  `city_id` INT NOT NULL AUTO_INCREMENT ,
+  `city_id` BINARY(16) NOT NULL ,
   `city_name` VARCHAR(45) NULL ,
-  `state_id` INT NOT NULL ,
+  `state_id` BINARY(16) NOT NULL ,
   PRIMARY KEY (`city_id`) ,
   INDEX `fk_City_State1_idx` (`state_id` ASC) ,
   CONSTRAINT `fk_City_State1`

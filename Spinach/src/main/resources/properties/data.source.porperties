@@ -1,10 +1,6 @@
 data.source.driver.class=com.mysql.jdbc.Driver
 data.source.url=jdbc:mysql://localhost:3306/Spinach
-<<<<<<< HEAD
 data.source.user.name=spinach
-=======
-data.source.user.name=Spinach
->>>>>>> branch 'master' of https://github.com/msafeerkp/shopping-cart.git
 data.source.user.password=spinach
 hibernate.dialect=org.hibernate.dialect.MySQLDialect
 hibernate.show.sql=true

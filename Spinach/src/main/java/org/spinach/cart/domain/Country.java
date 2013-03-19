@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.persistence.*;
 
 import org.spinach.cart.repository.CountryRepository;
+import org.spinach.cart.util.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
@@ -24,9 +25,8 @@ public class Country implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="country_id", unique=true, nullable=false)
-	private int countryId;
+	@Column(name="country_id",columnDefinition = "BINARY(16)", length = 16, updatable = false, nullable = false)
+	private byte[] id;
 
 	@Column(name="country_name", nullable=false, length=45)
 	private String countryName;
@@ -42,12 +42,12 @@ public class Country implements Serializable {
 	public Country() {
 	}
 
-	public int getCountryId() {
-		return this.countryId;
+	public byte[] getId() {
+		return id;
 	}
 
-	public void setCountryId(int countryId) {
-		this.countryId = countryId;
+	public void setId(byte[] id) {
+		this.id = id;
 	}
 
 	public String getCountryName() {
@@ -87,7 +87,15 @@ public class Country implements Serializable {
 	public void setCountryRepository(CountryRepository countryRepository) {
 		this.countryRepository = countryRepository;
 	}
+	
 	public void add(Country country){
 		countryRepository.save(country);
+	}
+	
+	@PrePersist
+	public void setUuid(){
+		if(this.id == null){
+			this.id = UUIDGenerator.getuuid();
+		}
 	}
 }

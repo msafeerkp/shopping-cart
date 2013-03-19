@@ -6,6 +6,7 @@ import javax.annotation.Resource;
 import javax.persistence.*;
 
 import org.spinach.cart.repository.CityRepository;
+import org.spinach.cart.util.UUIDGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
@@ -22,9 +23,8 @@ public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="city_id", unique=true, nullable=false)
-	private int cityId;
+	@Column(columnDefinition = "BINARY(16)", length = 16, updatable = false, nullable = false)
+	private byte[] id;
 
 	@Column(name="city_name", length=45)
 	private String cityName;
@@ -41,13 +41,20 @@ public class City implements Serializable {
 	public City() {
 	}
 
-	public int getCityId() {
-		return this.cityId;
+
+
+	public byte[] getId() {
+		if(this.id != null){
+			UUIDGenerator.byteTouuid(this.id);
+		}
+		return id;
 	}
 
-	public void setCityId(int cityId) {
-		this.cityId = cityId;
+
+	public void setId(byte[] id) {
+		this.id = id;
 	}
+
 
 	public String getCityName() {
 		return this.cityName;
@@ -77,4 +84,10 @@ public class City implements Serializable {
 		cityRepository.save(city);
 	}
 	
+	@PrePersist
+	public void setUuid(){
+		if(this.id == null){
+			this.id = UUIDGenerator.getuuid();
+		}
+	}
 }
