@@ -9,27 +9,54 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	
+
+	<!-- Appender for Application -->
+	<appender name="domain" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/msafeer/git/shopping-cart/Spinach/runtime/Domain.log" />
+		<param name="MaxFileSize" value="100KB" />
+		<!-- Keep one backup file -->
+		<param name="MaxBackupIndex" value="1" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout>
+	</appender>
+
+	<!-- Appender for 3rdparty Application -->
+	<appender name="application" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/msafeer/git/shopping-cart/Spinach/runtime/Application.log" />
+		<param name="MaxFileSize" value="100KB" />
+		<!-- Keep one backup file -->
+		<param name="MaxBackupIndex" value="1" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+		</layout>
+	</appender>
+
 	<!-- Application Loggers -->
-	<logger name="org.spinach.cart">
+	<logger name="org.spinach.cart.domain">
 		<level value="info" />
+		<appender-ref ref="domain" />
 	</logger>
-	
+
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
+		<appender-ref ref="application" />
 	</logger>
-	
+
 	<logger name="org.springframework.beans">
 		<level value="info" />
+		<appender-ref ref="application" />
 	</logger>
-	
+
 	<logger name="org.springframework.context">
 		<level value="info" />
+		<appender-ref ref="application" />
 	</logger>
 
 	<logger name="org.springframework.web">
 		<level value="info" />
+		<appender-ref ref="application" />
 	</logger>
 
 	<!-- Root Logger -->
@@ -37,5 +64,5 @@
 		<priority value="warn" />
 		<appender-ref ref="console" />
 	</root>
-	
+
 </log4j:configuration>
