@@ -7,8 +7,6 @@ import javax.persistence.*;
 
 import org.spinach.cart.repository.CountryRepository;
 import org.spinach.cart.util.UUIDGenerator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

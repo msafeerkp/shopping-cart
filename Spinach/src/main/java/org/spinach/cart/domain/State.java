@@ -2,10 +2,7 @@ package org.spinach.cart.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
-
-import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
-
 import java.util.List;
 
 

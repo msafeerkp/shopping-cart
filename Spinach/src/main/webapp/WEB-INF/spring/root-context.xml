@@ -70,4 +70,7 @@
 	<jpa:repositories base-package="org.spinach.cart.repository"
 		entity-manager-factory-ref="entityManagerFactory"
 		transaction-manager-ref="transactionManager" />
+	
+	<!-- Dozer bean Mapper -->
+	<bean id="dtoMapper" class="org.dozer.DozerBeanMapper"/>
 </beans>
