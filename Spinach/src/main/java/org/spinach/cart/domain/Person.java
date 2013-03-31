@@ -2,161 +2,97 @@ package org.spinach.cart.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
 
 /**
  * The persistent class for the Person database table.
- * @author Muhammed Safeer
+ * 
  */
 @Entity
-@Table(name="Person")
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(name="person_id", unique=true, nullable=false)
-	private int personId;
-
-	@Column(nullable=false, length=45)
-	private String active;
+	private String personId;
 
 	@Temporal(TemporalType.DATE)
-	private Date birhtday;
+	private Date birthDate;
 
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="created_on", nullable=false)
-	private Date createdOn;
+	private String firstName;
 
-	@Column(nullable=false, length=128)
-	private String email;
+	private String gender;
 
-	@Column(length=32)
-	private String firstname;
+	private String lastName;
 
-	@Column(name="last_password_gen", nullable=false)
-	private Timestamp lastPasswordGen;
-
-	@Column(length=32)
-	private String lastname;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="modified_on", nullable=false)
-	private Date modifiedOn;
-
-	@Column(nullable=false, length=32)
-	private String password;
-
-	//bi-directional many-to-one association to Customer
+	//bi-directional many-to-one association to Party
 	@OneToMany(mappedBy="person")
-	private List<Customer> customers;
+	private List<Party> parties;
 
 	public Person() {
 	}
 
-	public int getPersonId() {
+	public String getPersonId() {
 		return this.personId;
 	}
 
-	public void setPersonId(int personId) {
+	public void setPersonId(String personId) {
 		this.personId = personId;
 	}
 
-	public String getActive() {
-		return this.active;
+	public Date getBirthDate() {
+		return this.birthDate;
 	}
 
-	public void setActive(String active) {
-		this.active = active;
+	public void setBirthDate(Date birthDate) {
+		this.birthDate = birthDate;
 	}
 
-	public Date getBirhtday() {
-		return this.birhtday;
+	public String getFirstName() {
+		return this.firstName;
 	}
 
-	public void setBirhtday(Date birhtday) {
-		this.birhtday = birhtday;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public Date getCreatedOn() {
-		return this.createdOn;
+	public String getGender() {
+		return this.gender;
 	}
 
-	public void setCreatedOn(Date createdOn) {
-		this.createdOn = createdOn;
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
-	public String getEmail() {
-		return this.email;
+	public String getLastName() {
+		return this.lastName;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getFirstname() {
-		return this.firstname;
+	public List<Party> getParties() {
+		return this.parties;
 	}
 
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+	public void setParties(List<Party> parties) {
+		this.parties = parties;
 	}
 
-	public Timestamp getLastPasswordGen() {
-		return this.lastPasswordGen;
+	public Party addParty(Party party) {
+		getParties().add(party);
+		party.setPerson(this);
+
+		return party;
 	}
 
-	public void setLastPasswordGen(Timestamp lastPasswordGen) {
-		this.lastPasswordGen = lastPasswordGen;
-	}
+	public Party removeParty(Party party) {
+		getParties().remove(party);
+		party.setPerson(null);
 
-	public String getLastname() {
-		return this.lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public Date getModifiedOn() {
-		return this.modifiedOn;
-	}
-
-	public void setModifiedOn(Date modifiedOn) {
-		this.modifiedOn = modifiedOn;
-	}
-
-	public String getPassword() {
-		return this.password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public List<Customer> getCustomers() {
-		return this.customers;
-	}
-
-	public void setCustomers(List<Customer> customers) {
-		this.customers = customers;
-	}
-
-	public Customer addCustomer(Customer customer) {
-		getCustomers().add(customer);
-		customer.setPerson(this);
-
-		return customer;
-	}
-
-	public Customer removeCustomer(Customer customer) {
-		getCustomers().remove(customer);
-		customer.setPerson(null);
-
-		return customer;
+		return party;
 	}
 
 }
