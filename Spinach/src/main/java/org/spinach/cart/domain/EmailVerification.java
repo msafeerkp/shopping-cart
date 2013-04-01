@@ -7,7 +7,7 @@ import java.util.Date;
 
 /**
  * The persistent class for the EmailVerification database table.
- * 
+ * @author Muhammed Safeer
  */
 @Entity
 public class EmailVerification implements Serializable {
@@ -28,7 +28,7 @@ public class EmailVerification implements Serializable {
 	@Column(name="ModifiedOn")
 	private Date modifiedOn;
 
-	private byte[] verificationHash;
+	private String verificationHash;
 
 	public EmailVerification() {
 	}
@@ -73,11 +73,11 @@ public class EmailVerification implements Serializable {
 		this.modifiedOn = modifiedOn;
 	}
 
-	public byte[] getVerificationHash() {
+	public String getVerificationHash() {
 		return this.verificationHash;
 	}
 
-	public void setVerificationHash(byte[] verificationHash) {
+	public void setVerificationHash(String verificationHash) {
 		this.verificationHash = verificationHash;
 	}
 

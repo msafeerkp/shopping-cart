@@ -10,7 +10,7 @@ USE `Spinach` ;
 -- Table `Spinach`.`Person`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`Person` (
-  `personId` BINARY(16) NOT NULL ,
+  `personId` CHAR(36) NOT NULL ,
   `firstName` VARCHAR(30) NULL ,
   `lastName` VARCHAR(30) NULL ,
   `gender` CHAR(1) NULL ,
@@ -25,9 +25,9 @@ SHOW WARNINGS;
 -- Table `Spinach`.`UserLogin`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`UserLogin` (
-  `userLoginId` BINARY(16) NOT NULL ,
+  `userLoginId` CHAR(36) NOT NULL ,
   `UserId` VARCHAR(128) NOT NULL ,
-  `currentPassword` BINARY(16) NOT NULL ,
+  `currentPassword` CHAR(36) NOT NULL ,
   `hasLoggedIn` CHAR(1) NOT NULL ,
   `enabled` CHAR(1) NOT NULL ,
   PRIMARY KEY (`userLoginId`) )
@@ -40,11 +40,11 @@ SHOW WARNINGS;
 -- Table `Spinach`.`Party`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`Party` (
-  `partyId` BINARY(16) NOT NULL ,
+  `partyId` CHAR(36) NOT NULL ,
   `createdOn` DATETIME NOT NULL ,
   `ModifiedOn` DATETIME NULL ,
-  `personId` BINARY(16) NOT NULL ,
-  `userLoginId` BINARY(16) NOT NULL ,
+  `personId` CHAR(36) NOT NULL ,
+  `userLoginId` CHAR(36) NOT NULL ,
   PRIMARY KEY (`partyId`) ,
   INDEX `fk_Party_Person1_idx` (`personId` ASC) ,
   INDEX `fk_Party_UserLogin1_idx` (`userLoginId` ASC) ,
@@ -80,8 +80,8 @@ SHOW WARNINGS;
 -- Table `Spinach`.`PartyRole`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`PartyRole` (
-  `partyRoleId` BINARY(16) NOT NULL ,
-  `partyId` BINARY(16) NOT NULL ,
+  `partyRoleId` CHAR(36) NOT NULL ,
+  `partyId` CHAR(36) NOT NULL ,
   `roleTypeId` INT NOT NULL ,
   PRIMARY KEY (`partyRoleId`) ,
   INDEX `fk_PartyRole_Party_idx` (`partyId` ASC) ,
@@ -105,8 +105,8 @@ SHOW WARNINGS;
 -- Table `Spinach`.`PartyContactMech`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`PartyContactMech` (
-  `partyContactMechId` BINARY(16) NOT NULL ,
-  `partyId` BINARY(16) NOT NULL ,
+  `partyContactMechId` CHAR(36) NOT NULL ,
+  `partyId` CHAR(36) NOT NULL ,
   PRIMARY KEY (`partyContactMechId`) ,
   INDEX `fk_PartyContactMech_Party1_idx` (`partyId` ASC) ,
   CONSTRAINT `fk_PartyContactMech_Party1`
@@ -123,9 +123,9 @@ SHOW WARNINGS;
 -- Table `Spinach`.`EmailVerification`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `Spinach`.`EmailVerification` (
-  `emailVerificationId` BINARY(16) NOT NULL ,
+  `emailVerificationId` CHAR(36) NOT NULL ,
   `emailAddress` VARCHAR(128) NOT NULL ,
-  `verificationHash` BINARY(16) NOT NULL ,
+  `verificationHash` CHAR(36) NOT NULL ,
   `expiryDate` DATE NOT NULL ,
   `createdOn` DATETIME NOT NULL ,
   `ModifiedOn` DATETIME NULL ,
@@ -135,9 +135,9 @@ DEFAULT CHARACTER SET = utf8;
 
 SHOW WARNINGS;
 
----- -----------------------------------------------------
----- Table `Spinach`.`Product`
----- -----------------------------------------------------
+-- -----------------------------------------------------
+-- Table `Spinach`.`Product`
+-- -----------------------------------------------------
 --CREATE  TABLE IF NOT EXISTS `Spinach`.`Product` (
 --)
 --ENGINE = InnoDB

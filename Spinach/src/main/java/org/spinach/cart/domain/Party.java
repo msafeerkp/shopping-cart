@@ -1,15 +1,23 @@
 package org.spinach.cart.domain;
 
 import java.io.Serializable;
+
+import javax.annotation.Resource;
 import javax.persistence.*;
+
+import org.spinach.cart.repository.PartyRepository;
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 import java.util.List;
 
 
 /**
+ *  
  * The persistent class for the Party database table.
- * 
+ * @author Muhammed Safeer
  */
+@Component("party")
 @Entity
 public class Party implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -25,13 +33,11 @@ public class Party implements Serializable {
 	private Date modifiedOn;
 
 	//bi-directional many-to-one association to Person
-	@ManyToOne
-	@JoinColumn(name="personId")
+	@OneToOne(mappedBy="party")
 	private Person person;
 
 	//bi-directional many-to-one association to UserLogin
-	@ManyToOne
-	@JoinColumn(name="userLoginId")
+	@OneToOne(mappedBy="party")
 	private UserLogin userLogin;
 
 	//bi-directional many-to-one association to PartyContactMech
@@ -42,6 +48,10 @@ public class Party implements Serializable {
 	@OneToMany(mappedBy="party")
 	private List<PartyRole> partyRoles;
 
+	@Transient
+	@Resource
+	public PartyRepository partyRepository;
+	
 	public Party() {
 	}
 
@@ -129,4 +139,11 @@ public class Party implements Serializable {
 		return partyRole;
 	}
 
+	public PartyRepository getPartyRepository() {
+		return partyRepository;
+	}
+
+	public void setPartyRepository(PartyRepository partyRepository) {
+		this.partyRepository = partyRepository;
+	}	
 }

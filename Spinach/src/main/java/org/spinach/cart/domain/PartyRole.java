@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the PartyRole database table.
- * 
+ * @author Muhammed Safeer
  */
 @Entity
 public class PartyRole implements Serializable {

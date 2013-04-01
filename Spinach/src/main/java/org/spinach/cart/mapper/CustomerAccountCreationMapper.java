@@ -3,7 +3,6 @@ package org.spinach.cart.mapper;
 import javax.annotation.Resource;
 
 import org.dozer.DozerBeanMapper;
-import org.spinach.cart.domain.Customer;
 import org.spinach.cart.dto.CustomerAccountCreationDTO;
 import org.springframework.stereotype.Component;
 
@@ -31,8 +30,8 @@ public class CustomerAccountCreationMapper {
 	 * @param dto
 	 * @return {@link Customer}
 	 */
-	public Customer getCustomerFromDto(CustomerAccountCreationDTO dto){
+/*	public Customer getCustomerFromDto(CustomerAccountCreationDTO dto){
 		Customer customer = dtoMapper.map(dto,Customer.class);
 		return customer; 
 	}
-}
+*/}

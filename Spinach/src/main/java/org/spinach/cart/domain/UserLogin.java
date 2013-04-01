@@ -1,13 +1,18 @@
 package org.spinach.cart.domain;
 
 import java.io.Serializable;
+
+import javax.annotation.Resource;
 import javax.persistence.*;
+
+import org.spinach.cart.repository.UserLoginRepository;
+
 import java.util.List;
 
 
 /**
  * The persistent class for the UserLogin database table.
- * 
+ * @author Muhammed Safeer
  */
 @Entity
 public class UserLogin implements Serializable {
@@ -16,7 +21,7 @@ public class UserLogin implements Serializable {
 	@Id
 	private String userLoginId;
 
-	private byte[] currentPassword;
+	private String currentPassword;
 
 	private String enabled;
 
@@ -25,9 +30,14 @@ public class UserLogin implements Serializable {
 	@Column(name="UserId")
 	private String userId;
 
+	@Transient
+	@Resource
+	public UserLoginRepository userLoginRepository;
+	
 	//bi-directional many-to-one association to Party
-	@OneToMany(mappedBy="userLogin")
-	private List<Party> parties;
+	@OneToOne
+	@PrimaryKeyJoinColumn
+	private Party party;
 
 	public UserLogin() {
 	}
@@ -40,11 +50,11 @@ public class UserLogin implements Serializable {
 		this.userLoginId = userLoginId;
 	}
 
-	public byte[] getCurrentPassword() {
+	public String getCurrentPassword() {
 		return this.currentPassword;
 	}
 
-	public void setCurrentPassword(byte[] currentPassword) {
+	public void setCurrentPassword(String currentPassword) {
 		this.currentPassword = currentPassword;
 	}
 
@@ -71,27 +81,21 @@ public class UserLogin implements Serializable {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-
-	public List<Party> getParties() {
-		return this.parties;
-	}
-
-	public void setParties(List<Party> parties) {
-		this.parties = parties;
-	}
-
-	public Party addParty(Party party) {
-		getParties().add(party);
-		party.setUserLogin(this);
-
+	
+	public Party getParty() {
 		return party;
 	}
 
-	public Party removeParty(Party party) {
-		getParties().remove(party);
-		party.setUserLogin(null);
-
-		return party;
+	public void setParty(Party party) {
+		this.party = party;
 	}
 
+	public UserLoginRepository getUserLoginRepository() {
+		return userLoginRepository;
+	}
+
+	public void setUserLoginRepository(UserLoginRepository userLoginRepository) {
+		this.userLoginRepository = userLoginRepository;
+	}
+	
 }

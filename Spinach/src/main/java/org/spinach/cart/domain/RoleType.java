@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * The persistent class for the RoleType database table.
- * 
+ * @author Muhammed Safeer
  */
 @Entity
 public class RoleType implements Serializable {

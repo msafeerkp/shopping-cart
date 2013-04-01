@@ -4,8 +4,8 @@ import org.spinach.cart.domain.Person;
 import org.springframework.data.repository.CrudRepository;
 
 /**
- * 
+ * The repository class for the Person.
  * @author msafeerkp
  *
  */
-public interface PersonRepository extends CrudRepository<Person, Long> {}
+public interface PersonRepository extends CrudRepository<Person, String> {}

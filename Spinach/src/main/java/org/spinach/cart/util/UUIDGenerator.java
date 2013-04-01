@@ -14,12 +14,11 @@ public final class UUIDGenerator {
 	/**
 	 * Creates random uuid using using Java UUID.
 	 * 
-	 * @return {@link byte[]}
+	 * @return {@link String}
 	 * @see {@link UUID}
 	 */
-	public static byte[] getuuid() {
-		UUID uuid = UUID.randomUUID();
-		return UUIDGenerator.uuidTobyte(uuid);
+	public static String getuuid() {
+		return UUID.randomUUID().toString();
 	}
 
 	/**
