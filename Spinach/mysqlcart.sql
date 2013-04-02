@@ -1,10 +1,23 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
 CREATE SCHEMA IF NOT EXISTS `Spinach` DEFAULT CHARACTER SET latin1 ;
 SHOW WARNINGS;
 USE `Spinach` ;
+
+-- -----------------------------------------------------
+-- Table `Spinach`.`Party`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `Spinach`.`Party` (
+  `partyId` CHAR(36) NOT NULL ,
+  `createdOn` DATETIME NOT NULL ,
+  `ModifiedOn` DATETIME NULL ,
+  PRIMARY KEY (`partyId`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
 
 -- -----------------------------------------------------
 -- Table `Spinach`.`Person`
@@ -15,47 +28,12 @@ CREATE  TABLE IF NOT EXISTS `Spinach`.`Person` (
   `lastName` VARCHAR(30) NULL ,
   `gender` CHAR(1) NULL ,
   `birthDate` DATE NULL ,
-  PRIMARY KEY (`personId`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `Spinach`.`UserLogin`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `Spinach`.`UserLogin` (
-  `userLoginId` CHAR(36) NOT NULL ,
-  `UserId` VARCHAR(128) NOT NULL ,
-  `currentPassword` CHAR(36) NOT NULL ,
-  `hasLoggedIn` CHAR(1) NOT NULL ,
-  `enabled` CHAR(1) NOT NULL ,
-  PRIMARY KEY (`userLoginId`) )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-SHOW WARNINGS;
-
--- -----------------------------------------------------
--- Table `Spinach`.`Party`
--- -----------------------------------------------------
-CREATE  TABLE IF NOT EXISTS `Spinach`.`Party` (
   `partyId` CHAR(36) NOT NULL ,
-  `createdOn` DATETIME NOT NULL ,
-  `ModifiedOn` DATETIME NULL ,
-  `personId` CHAR(36) NOT NULL ,
-  `userLoginId` CHAR(36) NOT NULL ,
-  PRIMARY KEY (`partyId`) ,
-  INDEX `fk_Party_Person1_idx` (`personId` ASC) ,
-  INDEX `fk_Party_UserLogin1_idx` (`userLoginId` ASC) ,
-  CONSTRAINT `fk_Party_Person1`
-    FOREIGN KEY (`personId` )
-    REFERENCES `Spinach`.`Person` (`personId` )
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_Party_UserLogin1`
-    FOREIGN KEY (`userLoginId` )
-    REFERENCES `Spinach`.`UserLogin` (`userLoginId` )
+  PRIMARY KEY (`personId`) ,
+  INDEX `fk_Person_Party1` (`partyId` ASC) ,
+  CONSTRAINT `fk_Person_Party1`
+    FOREIGN KEY (`partyId` )
+    REFERENCES `Spinach`.`Party` (`partyId` )
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
@@ -110,6 +88,28 @@ CREATE  TABLE IF NOT EXISTS `Spinach`.`PartyContactMech` (
   PRIMARY KEY (`partyContactMechId`) ,
   INDEX `fk_PartyContactMech_Party1_idx` (`partyId` ASC) ,
   CONSTRAINT `fk_PartyContactMech_Party1`
+    FOREIGN KEY (`partyId` )
+    REFERENCES `Spinach`.`Party` (`partyId` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+SHOW WARNINGS;
+
+-- -----------------------------------------------------
+-- Table `Spinach`.`UserLogin`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `Spinach`.`UserLogin` (
+  `userLoginId` CHAR(36) NOT NULL ,
+  `UserId` VARCHAR(128) NOT NULL ,
+  `currentPassword` VARCHAR(32) NOT NULL ,
+  `hasLoggedIn` CHAR(1) NOT NULL ,
+  `enabled` CHAR(1) NOT NULL ,
+  `partyId` CHAR(36) NOT NULL ,
+  PRIMARY KEY (`userLoginId`) ,
+  INDEX `fk_UserLogin_Party1` (`partyId` ASC) ,
+  CONSTRAINT `fk_UserLogin_Party1`
     FOREIGN KEY (`partyId` )
     REFERENCES `Spinach`.`Party` (`partyId` )
     ON DELETE NO ACTION

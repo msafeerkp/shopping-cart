@@ -1,11 +1,8 @@
 package org.spinach.cart.domain;
 
 import java.io.Serializable;
-
-import javax.annotation.Resource;
 import javax.persistence.*;
 
-import org.spinach.cart.repository.PersonRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
@@ -14,9 +11,9 @@ import java.util.List;
 
 /**
  * The persistent class for the Person database table.
- * @author Muhammed Safeer
+ * 
  */
-@Component("person")
+/*@Component("person")*/
 @Entity
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -32,15 +29,10 @@ public class Person implements Serializable {
 	private String gender;
 
 	private String lastName;
-	
-	@Transient
-	@Resource
-	public PersonRepository personRepository;
-	
 
-	//bi-directional many-to-one association to Party
+	//bi-directional one-to-one association to Party
 	@OneToOne
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="partyId", referencedColumnName = "partyId")
 	private Party party;
 
 	public Person() {
@@ -87,20 +79,11 @@ public class Person implements Serializable {
 	}
 
 	public Party getParty() {
-		return party;
+		return this.party;
 	}
 
 	public void setParty(Party party) {
 		this.party = party;
 	}
-
-	public PersonRepository getPersonRepository() {
-		return personRepository;
-	}
-
-	public void setPersonRepository(PersonRepository personRepository) {
-		this.personRepository = personRepository;
-	}
-	
 
 }

@@ -1,18 +1,13 @@
 package org.spinach.cart.domain;
 
 import java.io.Serializable;
-
-import javax.annotation.Resource;
 import javax.persistence.*;
-
-import org.spinach.cart.repository.UserLoginRepository;
-
 import java.util.List;
 
 
 /**
  * The persistent class for the UserLogin database table.
- * @author Muhammed Safeer
+ * 
  */
 @Entity
 public class UserLogin implements Serializable {
@@ -30,13 +25,9 @@ public class UserLogin implements Serializable {
 	@Column(name="UserId")
 	private String userId;
 
-	@Transient
-	@Resource
-	public UserLoginRepository userLoginRepository;
-	
-	//bi-directional many-to-one association to Party
+	//bi-directional one-to-one association to Party
 	@OneToOne
-	@PrimaryKeyJoinColumn
+	@JoinColumn(name="partyId",referencedColumnName = "partyId")
 	private Party party;
 
 	public UserLogin() {
@@ -81,21 +72,13 @@ public class UserLogin implements Serializable {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	
+
 	public Party getParty() {
-		return party;
+		return this.party;
 	}
 
 	public void setParty(Party party) {
 		this.party = party;
 	}
 
-	public UserLoginRepository getUserLoginRepository() {
-		return userLoginRepository;
-	}
-
-	public void setUserLoginRepository(UserLoginRepository userLoginRepository) {
-		this.userLoginRepository = userLoginRepository;
-	}
-	
 }

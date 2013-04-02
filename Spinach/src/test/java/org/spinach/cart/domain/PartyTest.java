@@ -26,8 +26,8 @@ public class PartyTest {
 	@Resource
 	Party party1;
 	
-	@Resource 
-	Person person;
+	/*@Resource 
+	Person person;*/
 	
 	public Party getParty() {
 		return party1;
@@ -37,17 +37,17 @@ public class PartyTest {
 		this.party1 = party;
 	}
 
-	public Person getPerson() {
+	/*public Person getPerson() {
 		return person;
 	}
 
 	public void setPerson(Person person) {
 		this.person = person;
-	}
+	}*/
 
 	@Test
 	public void addParty(){
-		//Person person = new Person();
+		Person person = new Person();
 		Party party = new Party();
 		person.setPersonId(UUIDGenerator.getuuid());
 		person.setFirstName("Muhammed");
@@ -64,13 +64,13 @@ public class PartyTest {
 		party.setPartyId(UUIDGenerator.getuuid());
 		party.setCreatedOn(new Date());
 		party.setPerson(person);
-		//party.setUserLogin(userlogin);
+		party.setUserLogin(userlogin);
 		
+		userlogin.setParty(party);
 		person.setParty(party);
-		//userlogin.setParty(party);
+		party1.add(party);
 		
-		person.getPersonRepository().save(person);
-		party1.getPartyRepository().save(party);
+		
 		
 	}
 

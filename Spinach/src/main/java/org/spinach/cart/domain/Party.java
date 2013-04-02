@@ -13,7 +13,6 @@ import java.util.List;
 
 
 /**
- *  
  * The persistent class for the Party database table.
  * @author Muhammed Safeer
  */
@@ -32,12 +31,12 @@ public class Party implements Serializable {
 	@Column(name="ModifiedOn")
 	private Date modifiedOn;
 
-	//bi-directional many-to-one association to Person
-	@OneToOne(mappedBy="party")
+	//bi-directional one-to-one association to Person
+	@OneToOne(mappedBy = "party",cascade = CascadeType.ALL)
 	private Person person;
 
 	//bi-directional many-to-one association to UserLogin
-	@OneToOne(mappedBy="party")
+	@OneToOne(mappedBy="party", cascade = CascadeType.ALL)
 	private UserLogin userLogin;
 
 	//bi-directional many-to-one association to PartyContactMech
@@ -47,11 +46,11 @@ public class Party implements Serializable {
 	//bi-directional many-to-one association to PartyRole
 	@OneToMany(mappedBy="party")
 	private List<PartyRole> partyRoles;
-
+	
 	@Transient
 	@Resource
-	public PartyRepository partyRepository;
-	
+	PartyRepository partyRepository;
+
 	public Party() {
 	}
 
@@ -145,5 +144,11 @@ public class Party implements Serializable {
 
 	public void setPartyRepository(PartyRepository partyRepository) {
 		this.partyRepository = partyRepository;
-	}	
+	}
+	
+	public Party add(Party party){
+		return partyRepository.save(party);
+	}
+	
+
 }
