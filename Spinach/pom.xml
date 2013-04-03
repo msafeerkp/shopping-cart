@@ -13,6 +13,14 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
+	<repositories>
+		<repository>
+			<id>prime-repo</id>
+			<name>PrimeFaces Maven Repository</name>
+			<url>http://repository.primefaces.org</url>
+			<layout>default</layout>
+		</repository>
+	</repositories>
 	<dependencies>
 		<!-- Spring -->
 		<dependency>
@@ -132,13 +140,6 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Webflow -->
-		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-faces</artifactId>
-			<version>2.3.2.RELEASE</version>
-		</dependency>
-
 		<!-- JSF API -->
 		<dependency>
 			<groupId>com.sun.faces</groupId>
@@ -193,6 +194,12 @@
 			<version>5.4.0</version>
 		</dependency>
 
+		<!-- Primefaces -->
+		<dependency>
+			<groupId>org.primefaces</groupId>
+			<artifactId>primefaces</artifactId>
+			<version>3.5</version>
+		</dependency>
 
 	</dependencies>
 	<build>
@@ -252,7 +259,7 @@
 					<settingsKey>databaseKey</settingsKey>
 					<driver>com.mysql.jdbc.Driver</driver>
 					<url>jdbc:mysql://localhost:3306</url>
-					<printResultSet>true</printResultSet>					
+					<printResultSet>true</printResultSet>
 					<srcFiles>
 						<srcFile>mysqlcart.sql</srcFile>
 					</srcFiles>

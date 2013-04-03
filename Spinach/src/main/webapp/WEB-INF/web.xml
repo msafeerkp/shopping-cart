@@ -3,8 +3,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
 
-	<!-- The definition of the Root Spring Container shared by all Servlets 
-		and Filters -->
+	 <!-- Spring Context Configuration' s Path definition -->
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/spring/root-context.xml</param-value>
@@ -25,7 +24,7 @@
 	<!-- Enables special Facelets debug output during development -->
 	<context-param>
 		<param-name>javax.faces.PROJECT_STAGE</param-name>
-		<param-value>Development </param-value>
+		<param-value>Development</param-value>
 	</context-param>
 
 	<!-- Causes Facelets to refresh templates during development -->
@@ -34,21 +33,31 @@
 		<param-value>1</param-value>
 	</context-param>
 
-	<!-- Just here so the JSF implementation can initialize, *not* used at runtime -->
+	<!-- JSF Servlet is defined to container -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 
-	<!-- Just here so the JSF implementation can initialize -->
+	<!-- Mapping with servlet and url for the http requests. -->
+	<servlet-mapping>
+    	<servlet-name>Faces Servlet</servlet-name>
+    	<url-pattern>*.jsf</url-pattern>
+	</servlet-mapping>
+	
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>*.faces</url-pattern>
 	</servlet-mapping>
+	
+ 	<welcome-file-list>
+    	<welcome-file>/views/CreateAccount.xhtml</welcome-file>
+   	</welcome-file-list> 
+	
 
-	<!-- Processes application requests -->
-	<servlet>
+ 	<!-- Processes application requests  -->
+ 	<servlet>
 		<servlet-name>appServlet</servlet-name>
 		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
 		<init-param>
@@ -56,11 +65,11 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
-	</servlet>
+	</servlet> 
 
-	<servlet-mapping>
+ 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/*</url-pattern>
-	</servlet-mapping>
+	</servlet-mapping> 
 
 </web-app>

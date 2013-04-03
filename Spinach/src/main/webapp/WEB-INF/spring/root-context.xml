@@ -73,4 +73,5 @@
 	
 	<!-- Dozer bean Mapper -->
 	<bean id="dtoMapper" class="org.dozer.DozerBeanMapper"/>
+	
 </beans>
