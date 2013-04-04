@@ -1,8 +1,7 @@
 package org.spinach.cart.domain;
 
-import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+
 import java.util.Date;
 
 import javax.annotation.Resource;
@@ -15,7 +14,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import antlr.collections.List;
 
 @Profile("test")
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
@@ -25,10 +23,7 @@ public class PartyTest {
 
 	@Resource
 	Party party1;
-	
-	/*@Resource 
-	Person person;*/
-	
+		
 	public Party getParty() {
 		return party1;
 	}
@@ -36,14 +31,6 @@ public class PartyTest {
 	public void setParty(Party party) {
 		this.party1 = party;
 	}
-
-	/*public Person getPerson() {
-		return person;
-	}
-
-	public void setPerson(Person person) {
-		this.person = person;
-	}*/
 
 	@Test
 	public void addParty(){
@@ -58,7 +45,6 @@ public class PartyTest {
 		userlogin.setUserLoginId("msafeerkp@gmail.com");
 		userlogin.setCurrentPassword("welcome*123");
 		userlogin.setEnabled("N");
-		userlogin.setHasLoggedIn("N");
 		
 		
 		party.setPartyId(UUIDGenerator.getuuid());
@@ -68,7 +54,7 @@ public class PartyTest {
 		
 		userlogin.setParty(party);
 		person.setParty(party);
-		party1.add(party);
+		party1.addParty(party);
 		
 		
 		

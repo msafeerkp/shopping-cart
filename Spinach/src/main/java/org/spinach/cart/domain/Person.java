@@ -6,14 +6,13 @@ import javax.persistence.*;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.List;
 
 
 /**
  * The persistent class for the Person database table.
  * 
  */
-/*@Component("person")*/
+@Component("person")
 @Entity
 public class Person implements Serializable {
 	private static final long serialVersionUID = 1L;

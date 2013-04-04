@@ -1,8 +1,11 @@
 package org.spinach.cart.domain;
 
 import java.io.Serializable;
+
+import javax.annotation.Resource;
 import javax.persistence.*;
-import java.util.List;
+
+import org.spinach.cart.repository.UserLoginRepository;
 
 
 /**
@@ -20,8 +23,6 @@ public class UserLogin implements Serializable {
 
 	private String enabled;
 
-	private String hasLoggedIn;
-
 	@Column(name="UserId")
 	private String userId;
 
@@ -29,6 +30,10 @@ public class UserLogin implements Serializable {
 	@OneToOne
 	@JoinColumn(name="partyId",referencedColumnName = "partyId")
 	private Party party;
+	
+	@Transient
+	@Resource
+	private UserLoginRepository userLoginRepository;
 
 	public UserLogin() {
 	}
@@ -57,14 +62,6 @@ public class UserLogin implements Serializable {
 		this.enabled = enabled;
 	}
 
-	public String getHasLoggedIn() {
-		return this.hasLoggedIn;
-	}
-
-	public void setHasLoggedIn(String hasLoggedIn) {
-		this.hasLoggedIn = hasLoggedIn;
-	}
-
 	public String getUserId() {
 		return this.userId;
 	}
@@ -79,6 +76,18 @@ public class UserLogin implements Serializable {
 
 	public void setParty(Party party) {
 		this.party = party;
+	}
+
+	public UserLoginRepository getUserLoginRepository() {
+		return userLoginRepository;
+	}
+
+	public void setUserLoginRepository(UserLoginRepository userLoginRepository) {
+		this.userLoginRepository = userLoginRepository;
+	}
+	
+	public void addUserLogin(){
+		userLoginRepository.save(this);
 	}
 
 }

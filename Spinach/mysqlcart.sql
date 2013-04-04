@@ -1,6 +1,6 @@
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
-SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL,ALLOW_INVALID_DATES';
 
 CREATE SCHEMA IF NOT EXISTS `Spinach` DEFAULT CHARACTER SET latin1 ;
 SHOW WARNINGS;
@@ -30,7 +30,7 @@ CREATE  TABLE IF NOT EXISTS `Spinach`.`Person` (
   `birthDate` DATE NULL ,
   `partyId` CHAR(36) NOT NULL ,
   PRIMARY KEY (`personId`) ,
-  INDEX `fk_Person_Party1` (`partyId` ASC) ,
+  INDEX `fk_Person_Party1_idx` (`partyId` ASC) ,
   CONSTRAINT `fk_Person_Party1`
     FOREIGN KEY (`partyId` )
     REFERENCES `Spinach`.`Party` (`partyId` )
@@ -104,11 +104,10 @@ CREATE  TABLE IF NOT EXISTS `Spinach`.`UserLogin` (
   `userLoginId` CHAR(36) NOT NULL ,
   `UserId` VARCHAR(128) NOT NULL ,
   `currentPassword` VARCHAR(32) NOT NULL ,
-  `hasLoggedIn` CHAR(1) NOT NULL ,
   `enabled` CHAR(1) NOT NULL ,
   `partyId` CHAR(36) NOT NULL ,
   PRIMARY KEY (`userLoginId`) ,
-  INDEX `fk_UserLogin_Party1` (`partyId` ASC) ,
+  INDEX `fk_UserLogin_Party1_idx` (`partyId` ASC) ,
   CONSTRAINT `fk_UserLogin_Party1`
     FOREIGN KEY (`partyId` )
     REFERENCES `Spinach`.`Party` (`partyId` )

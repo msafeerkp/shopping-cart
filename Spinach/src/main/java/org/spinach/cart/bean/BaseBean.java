@@ -5,7 +5,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class BaseBean {
 	/**
-	 * Method to get a String representing the current state of the DTO.
+	 * Method to get a String representing the current state of the Managed Bean.
 	 * 
 	 * @return string of fields listed in the DTO
 	 */

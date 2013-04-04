@@ -145,4 +145,7 @@ public class Party implements Serializable {
 	public void setPartyRepository(PartyRepository partyRepository) {
 		this.partyRepository = partyRepository;
 	}
+	public void addParty(Party party){
+		partyRepository.save(party);
+	}
 }

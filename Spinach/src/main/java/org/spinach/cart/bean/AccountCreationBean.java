@@ -1,21 +1,45 @@
 package org.spinach.cart.bean;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 
+import org.spinach.cart.service.PartyAccountService;
+
+@ManagedBean(name = "accountCreation")
 public class AccountCreationBean extends BaseBean{
 	
-	private String emailID;
-	private String password;
+	private String userLoginId;
+	private String currentPassword;
 	
-	public String getEmailID() {
-		return emailID;
+	@ManagedProperty(value = "#{partyAccountService}")
+	PartyAccountService accountService;
+
+	public String getUserLoginId() {
+		return userLoginId;
 	}
-	public void setEmailID(String emailID) {
-		this.emailID = emailID;
+
+	public void setUserLoginId(String userLoginId) {
+		this.userLoginId = userLoginId;
 	}
-	public String getPassword() {
-		return password;
+
+	public String getCurrentPassword() {
+		return currentPassword;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+
+	public void setCurrentPassword(String currentPassword) {
+		this.currentPassword = currentPassword;
 	}
+
+	public PartyAccountService getAccountService() {
+		return accountService;
+	}
+
+	public void setAccountService(PartyAccountService accountService) {
+		this.accountService = accountService;
+	}
+
+	public void createAccount(){
+		accountService.addParty(this);
+	}
+
 }
