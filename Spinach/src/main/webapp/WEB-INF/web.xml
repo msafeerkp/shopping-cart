@@ -62,7 +62,7 @@
 	</servlet-mapping>
 
 	<welcome-file-list>
-		<welcome-file>/views/CreateAccount.xhtml</welcome-file>
+		<welcome-file>/layouts/standard.xhtml</welcome-file>
 	</welcome-file-list>
 
 
