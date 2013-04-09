@@ -11,15 +11,33 @@ body {
 	width: 100%;
 }
 
-.header-search {
+.header-logo {
+	width: 230px;
+	border: 1px solid;
+	margin: 15px;
 	float: left;
-	height: 100%;
 }
 
+.header-search {
+	border: 1px solid;
+	width: 100px;
+	float: left;
+}
+
+
 .header-right {
-	float: right;
-	height: 100%;
+	float: right; 
+	border : 1px solid;
 	margin: 15px;
+	border: 1px solid;
+}
+
+.header-cart {
+
+}
+
+.header-userinfo {
+	
 }
 
 .footer {
@@ -33,7 +51,7 @@ body {
 	float: left;
 	height: 600px;
 	border: 1px solid;
-	bottom: 0px;
+	width: 100%;
 }
 
 .mainbody-left-column {
@@ -47,18 +65,10 @@ body {
 	height: 600px;
 	float: left;
 	border: 1px solid;
-	width: 700px;
-}
-
-.header-logo {
-	height: 56px;
-	width: 209px;
-	border: 1px solid;
-	float: left;
-	margin: 15px;
+	width: 744px;
 }
 
 #page {
-	float: left;
-	width: 100%;
+	width: 1000px;
+	margin: 0px auto;
 }
