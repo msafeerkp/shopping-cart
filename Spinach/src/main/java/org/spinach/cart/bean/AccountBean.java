@@ -6,7 +6,7 @@ import javax.faces.bean.ManagedProperty;
 import org.spinach.cart.service.PartyAccountService;
 
 @ManagedBean(name = "accountCreation")
-public class AccountCreationBean extends BaseBean{
+public class AccountBean extends BaseBean{
 	
 	private String userLoginId;
 	private String currentPassword;
@@ -39,7 +39,7 @@ public class AccountCreationBean extends BaseBean{
 	}
 
 	public void createAccount(){
-		accountService.addParty(this);
+		accountService.signUp(this);
 	}
 
 }

@@ -4,14 +4,18 @@ import java.util.Date;
 
 import javax.annotation.Resource;
 
-import org.spinach.cart.bean.AccountCreationBean;
+import org.spinach.cart.bean.AccountBean;
 import org.spinach.cart.domain.Party;
-import org.spinach.cart.domain.Person;
 import org.spinach.cart.domain.UserLogin;
 import org.spinach.cart.mapper.PartyMapper;
 import org.spinach.cart.util.UUIDGenerator;
 import org.springframework.stereotype.Component;
 
+/**
+ * 
+ * @author Muhammed Safeer
+ *
+ */
 @Component("partyAccountService")
 public class PartyAccountServiceImpl implements PartyAccountService{
 
@@ -40,17 +44,15 @@ public class PartyAccountServiceImpl implements PartyAccountService{
 	}
 
 	@Override
-	public void addParty(AccountCreationBean account) {
+	public void signUp(AccountBean account) {
 		UserLogin userLogin= partyMapper.getUserLogin(account);
+
 		Party party = new Party();
-		Person person = new Person();
 		party.setPartyId(UUIDGenerator.getuuid());
 		party.setCreatedOn(new Date());
-		person.setPersonId(UUIDGenerator.getuuid());
-		userLogin.setUserId(UUIDGenerator.getuuid());
 		party.setUserLogin(userLogin);
-		party.setPerson(person);
-		person.setParty(party);
+		
+		userLogin.setUserId(UUIDGenerator.getuuid());
 		userLogin.setParty(party);
 		userLogin.setEnabled(DISABLED);
 		this.party.addParty(party);

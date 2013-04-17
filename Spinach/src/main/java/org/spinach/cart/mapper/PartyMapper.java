@@ -3,7 +3,7 @@ package org.spinach.cart.mapper;
 import javax.annotation.Resource;
 
 import org.dozer.DozerBeanMapper;
-import org.spinach.cart.bean.AccountCreationBean;
+import org.spinach.cart.bean.AccountBean;
 import org.spinach.cart.domain.UserLogin;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +31,7 @@ public class PartyMapper {
 	 * @param dto
 	 * @return {@link Customer}
 	 */
-	public UserLogin getUserLogin(AccountCreationBean account){
+	public UserLogin getUserLogin(AccountBean account){
 		UserLogin userLogin = dtoMapper.map(account,UserLogin.class);
 		return userLogin; 
 	}
