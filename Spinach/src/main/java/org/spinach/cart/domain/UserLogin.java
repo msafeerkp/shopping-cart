@@ -5,7 +5,10 @@ import java.io.Serializable;
 import javax.annotation.Resource;
 import javax.persistence.*;
 
+import org.apache.log4j.Logger;
+import org.spinach.cart.exception.CartException;
 import org.spinach.cart.repository.UserLoginRepository;
+import org.springframework.stereotype.Component;
 
 
 /**
@@ -13,6 +16,7 @@ import org.spinach.cart.repository.UserLoginRepository;
  * 
  */
 @Entity
+@Component("userLogin")
 public class UserLogin implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -35,6 +39,9 @@ public class UserLogin implements Serializable {
 	@Resource
 	private UserLoginRepository userLoginRepository;
 
+	@Transient
+	Logger logger = Logger.getLogger(UserLogin.class);
+	
 	public UserLogin() {
 	}
 
@@ -86,8 +93,20 @@ public class UserLogin implements Serializable {
 		this.userLoginRepository = userLoginRepository;
 	}
 	
-	public void addUserLogin(){
+/*	public void addUserLogin(){
 		userLoginRepository.save(this);
+	}*/
+	
+	public UserLogin findByuserId(String userId) throws CartException{
+		UserLogin userLogin = null;
+		try{
+			userLogin = userLoginRepository.findByuserId(userId);
+		}
+		catch(RuntimeException ex){
+			logger.error("Exception occured while finding the record for "+userId+".", ex);
+			throw new CartException();
+		}
+		return userLogin;
 	}
 
 }

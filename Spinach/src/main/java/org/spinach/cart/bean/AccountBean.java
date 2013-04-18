@@ -3,23 +3,24 @@ package org.spinach.cart.bean;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 
+import org.spinach.cart.exception.CartException;
 import org.spinach.cart.service.PartyAccountService;
 
 @ManagedBean(name = "accountCreation")
 public class AccountBean extends BaseBean{
 	
-	private String userLoginId;
+	private String userId;
 	private String currentPassword;
 	
 	@ManagedProperty(value = "#{partyAccountService}")
 	PartyAccountService accountService;
 
-	public String getUserLoginId() {
-		return userLoginId;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserLoginId(String userLoginId) {
-		this.userLoginId = userLoginId;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	public String getCurrentPassword() {
@@ -38,7 +39,7 @@ public class AccountBean extends BaseBean{
 		this.accountService = accountService;
 	}
 
-	public void createAccount(){
+	public void createAccount() throws CartException{
 		accountService.signUp(this);
 	}
 

@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.annotation.Resource;
 import javax.persistence.*;
 
+import org.apache.log4j.Logger;
+import org.spinach.cart.exception.CartException;
 import org.spinach.cart.repository.PartyRepository;
 import org.springframework.stereotype.Component;
 
@@ -50,6 +52,9 @@ public class Party implements Serializable {
 	@Transient
 	@Resource
 	PartyRepository partyRepository;
+	
+	@Transient
+	private static Logger logger = Logger.getLogger(Party.class);
 
 	public Party() {
 	}
@@ -145,7 +150,15 @@ public class Party implements Serializable {
 	public void setPartyRepository(PartyRepository partyRepository) {
 		this.partyRepository = partyRepository;
 	}
-	public void addParty(Party party){
-		partyRepository.save(party);
+	
+	public void addParty(Party party) throws CartException{
+		try{
+			partyRepository.save(party);
+		}
+		catch(RuntimeException ex){
+			logger.error("Exception occured dring the party creation.", ex);
+			throw new CartException();
+		}
 	}
+
 }

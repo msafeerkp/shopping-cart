@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.spinach.cart.exception.CartException;
 import org.spinach.cart.util.UUIDGenerator;
 import org.springframework.context.annotation.Profile;
 import org.springframework.test.context.ActiveProfiles;
@@ -33,7 +34,7 @@ public class PartyTest {
 	}
 
 	@Test
-	public void addParty(){
+	public void addParty() throws CartException{
 		Person person = new Person();
 		Party party = new Party();
 		person.setPersonId(UUIDGenerator.getuuid());
@@ -41,8 +42,8 @@ public class PartyTest {
 		
 		
 		UserLogin userlogin =  new UserLogin();
-		userlogin.setUserId(UUIDGenerator.getuuid());
-		userlogin.setUserLoginId("msafeerkp@gmail.com");
+		userlogin.setUserId("msafeerkp@gmail.com");
+		userlogin.setUserLoginId(UUIDGenerator.getuuid());
 		userlogin.setCurrentPassword("welcome*123");
 		userlogin.setEnabled("N");
 		
@@ -55,8 +56,6 @@ public class PartyTest {
 		userlogin.setParty(party);
 		person.setParty(party);
 		party1.addParty(party);
-		
-		
 		
 	}
 
