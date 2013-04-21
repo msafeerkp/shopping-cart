@@ -2,6 +2,8 @@ package org.spinach.cart.domain;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,8 +28,7 @@ public class UserLoginTest {
 	}
 
 	@Test
-	public void findByUserId() throws CartException{
-		UserLogin usrlog = userLogin.isExistAndActive("msafeer@gmil.com", "N");
-		logger.info(usrlog.toString());
+	public void isExistAndActive() throws CartException{
+		logger.info(ReflectionToStringBuilder.toString(userLogin.isExistAndActive("msafeer@gmail.com", "N"),ToStringStyle.MULTI_LINE_STYLE));
 	}
 }

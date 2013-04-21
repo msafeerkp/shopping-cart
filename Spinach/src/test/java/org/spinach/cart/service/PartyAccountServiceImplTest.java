@@ -2,6 +2,7 @@ package org.spinach.cart.service;
 
 import javax.annotation.Resource;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.spinach.cart.bean.AccountBean;
@@ -29,6 +30,7 @@ public class PartyAccountServiceImplTest {
 		this.partyAccountService = partyAccountService;
 	}
 
+	@Ignore
 	@Test
 	public void signUp() throws CartException{
 		AccountBean signup = new AccountBean();
