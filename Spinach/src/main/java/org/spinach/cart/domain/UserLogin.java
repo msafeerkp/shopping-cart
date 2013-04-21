@@ -97,10 +97,10 @@ public class UserLogin implements Serializable {
 		userLoginRepository.save(this);
 	}*/
 	
-	public UserLogin findByuserId(String userId) throws CartException{
+	public UserLogin isExistAndActive(String userId,String enabled) throws CartException{
 		UserLogin userLogin = null;
 		try{
-			userLogin = userLoginRepository.findByuserId(userId);
+			userLogin = userLoginRepository.findByUserIdAndEnabled(userId, enabled);
 		}
 		catch(RuntimeException ex){
 			logger.error("Exception occured while finding the record for "+userId+".", ex);

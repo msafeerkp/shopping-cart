@@ -9,5 +9,5 @@ import org.springframework.data.repository.CrudRepository;
  *
  */
 public interface UserLoginRepository extends CrudRepository<UserLogin, String>{
-	public UserLogin findByuserId(String userId);
+	public UserLogin findByUserIdAndEnabled(String userId,String enabled);
 }

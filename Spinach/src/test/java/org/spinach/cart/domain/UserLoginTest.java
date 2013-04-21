@@ -27,7 +27,7 @@ public class UserLoginTest {
 
 	@Test
 	public void findByUserId() throws CartException{
-		UserLogin usrlog = userLogin.findByuserId("msafeer@gmail.com");
+		UserLogin usrlog = userLogin.isExistAndActive("msafeer@gmil.com", "N");
 		logger.info(usrlog.toString());
 	}
 }
