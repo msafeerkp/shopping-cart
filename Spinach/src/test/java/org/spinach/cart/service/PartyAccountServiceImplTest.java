@@ -2,6 +2,9 @@ package org.spinach.cart.service;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.builder.ReflectionToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +28,8 @@ public class PartyAccountServiceImplTest {
 	public PartyAccountService getPartyAccountService() {
 		return partyAccountService;
 	}
+	
+	private static Logger logger = Logger.getLogger(PartyAccountServiceImplTest.class);
 
 	public void setPartyAccountService(PartyAccountService partyAccountService) {
 		this.partyAccountService = partyAccountService;
@@ -43,6 +48,15 @@ public class PartyAccountServiceImplTest {
 	public void signUpWithNullObject() throws CartException{
 		AccountBean signup = new AccountBean();
 		partyAccountService.signUp(signup);
+	}
+	
+	@Test
+	public void login() throws CartException{
+		AccountBean signup = new AccountBean();
+		signup.setUserId("msafeer@gmail.com");
+		signup.setCurrentPassword("welcome*123");
+		boolean resultFromLogin = partyAccountService.login(signup);
+		logger.info("reslut from login process - "+resultFromLogin);
 	}
 	
 }

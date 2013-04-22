@@ -150,7 +150,11 @@ public class Party implements Serializable {
 	public void setPartyRepository(PartyRepository partyRepository) {
 		this.partyRepository = partyRepository;
 	}
-	
+	/***
+	 * Persist the party in to the Database
+	 * @param party - Party Details
+	 * @throws CartException
+	 */
 	public void addParty(Party party) throws CartException{
 		try{
 			partyRepository.save(party);

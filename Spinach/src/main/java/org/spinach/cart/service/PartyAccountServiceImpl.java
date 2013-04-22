@@ -29,6 +29,9 @@ public class PartyAccountServiceImpl implements PartyAccountService{
 	@Resource
 	Party party;
 	
+	@Resource
+	UserLogin userLogin;
+	
 	private static Logger logger = Logger.getLogger(PartyAccountServiceImpl.class);
 	public PartyMapper getPartyMapper() {
 		return partyMapper;
@@ -48,15 +51,12 @@ public class PartyAccountServiceImpl implements PartyAccountService{
 
 	@Override
 	public void signUp(AccountBean account) throws CartException{
-		
 		try{
 			UserLogin userLogin= partyMapper.getUserLogin(account);
-
 			Party party = new Party();
 			party.setPartyId(UUIDGenerator.getuuid());
 			party.setCreatedOn(new Date());
 			party.setUserLogin(userLogin);
-			
 			userLogin.setUserLoginId(UUIDGenerator.getuuid());
 			userLogin.setParty(party);
 			userLogin.setEnabled(DISABLED);
@@ -66,6 +66,23 @@ public class PartyAccountServiceImpl implements PartyAccountService{
 			logger.error("Exception occured during the signup process.", ex);
 			throw new CartException();
 		}
+	}
 
+	@Override
+	public boolean login(AccountBean account) throws CartException {
+		boolean resultFromLogin = false;
+		try{
+			UserLogin userLogin= partyMapper.getUserLogin(account);
+			userLogin = this.userLogin.isExist(userLogin.getUserId(), userLogin.getCurrentPassword());
+			resultFromLogin = true;
+			if(userLogin == null){
+				resultFromLogin = false;
+			}
+		}
+		catch(RuntimeException ex){
+			logger.error("Exception occured during the Login process.", ex);
+			throw new CartException();
+		}
+		return resultFromLogin;
 	}
 }

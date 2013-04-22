@@ -28,7 +28,7 @@ public class UserLoginTest {
 	}
 
 	@Test
-	public void isExistAndActive() throws CartException{
-		logger.info(ReflectionToStringBuilder.toString(userLogin.isExistAndActive("msafeer@gmail.com", "N"),ToStringStyle.MULTI_LINE_STYLE));
+	public void isExist() throws CartException{
+		logger.info(ReflectionToStringBuilder.toString(userLogin.isExist("msafeer@gmail.com", "welcome*123"),ToStringStyle.MULTI_LINE_STYLE));
 	}
 }

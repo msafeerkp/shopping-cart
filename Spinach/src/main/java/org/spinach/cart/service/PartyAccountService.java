@@ -8,9 +8,18 @@ import org.spinach.cart.exception.CartException;
  *
  */
 public interface PartyAccountService {
-	/**
-	 * Creates an account for a Party.
-	 * @param account
+	/***
+	 * Creates an Account for the requested User.
+	 * @param account - User Details are stored as an object of {@link AccountBean} Class.
+	 * @throws CartException
 	 */
 	public void signUp(AccountBean account) throws CartException;
+	
+	/***
+	 * Perform the Login Operation
+	 * @param account - User Details are stored as an object of {@link AccountBean} Class.
+	 * @return returns true if the User Login process is successful. return false if Login process is not successful.
+	 * @throws CartException
+	 */
+	public boolean login(AccountBean account) throws CartException;
 }

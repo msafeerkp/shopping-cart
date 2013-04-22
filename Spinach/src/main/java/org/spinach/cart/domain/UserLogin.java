@@ -93,14 +93,19 @@ public class UserLogin implements Serializable {
 		this.userLoginRepository = userLoginRepository;
 	}
 	
-/*	public void addUserLogin(){
-		userLoginRepository.save(this);
-	}*/
+	/**
+	 * returns the object of the {@link UserLogin} Class. This method returns {@link <code>null</code>},
+	 * if the UserLogin details does not exist for the specified userId.
+	 * @param userId - login id of the User
+	 * @param password - password of the User.
+	 * @return object of the {@link UserLogin} Class.
+	 * @throws CartException
+	 */
 	
-	public UserLogin isExistAndActive(String userId,String enabled) throws CartException{
+	public UserLogin isExist(String userId,String password) throws CartException{
 		UserLogin userLogin = null;
 		try{
-			userLogin = userLoginRepository.findByUserIdAndEnabled(userId, enabled);
+			userLogin = userLoginRepository.findByUserIdAndCurrentPassword(userId, password);
 		}
 		catch(RuntimeException ex){
 			logger.error("Exception occured while finding the record for "+userId+".", ex);
