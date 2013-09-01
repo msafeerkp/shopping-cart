@@ -12,7 +12,7 @@
 
 	<!-- Appender for Application -->
 	<appender name="domain" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="/home/msafeer/git/shopping-cart/Spinach/runtime/Domain.log" />
+		<param name="file" value="/home/safeer/Domain.log" />
 		<param name="MaxFileSize" value="100KB" />
 		<!-- Keep one backup file -->
 		<param name="MaxBackupIndex" value="1" />
@@ -23,7 +23,7 @@
 
 	<!-- Appender for 3rdparty Application -->
 	<appender name="application" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="/home/msafeer/git/shopping-cart/Spinach/runtime/Application.log" />
+		<param name="file" value="/home/safeer/Application.log" />
 		<param name="MaxFileSize" value="100KB" />
 		<!-- Keep one backup file -->
 		<param name="MaxBackupIndex" value="1" />

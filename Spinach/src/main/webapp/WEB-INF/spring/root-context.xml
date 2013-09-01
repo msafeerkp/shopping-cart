@@ -27,49 +27,15 @@
 	</bean>
 
 	<!-- Database Configuration -->
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource"
-		p:driverClassName="${data.source.driver.class}" p:url="${data.source.url}"
-		p:password="${data.source.user.password}" p:username="${data.source.user.name}">
-	</bean>
-
-	<!-- JPA Entity Manager Configuration -->
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-		p:dataSource-ref="dataSource">
-		<property name="dataSource" ref="dataSource"/>
-		<property name="jpaVendorAdapter">
-			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"></bean>
-		</property>
-		<!-- <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"></property> -->
-		<property name="packagesToScan" value="org.spinach.cart.domain" />
-		<property name="jpaProperties">
-			<props>
-				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
-				<prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
-				<prop key="hibernate.max_fetch_depth">${hibernate.max.fetch.size}3</prop>
-				<prop key="hibernate.jdbc.fetch_size">${hibernate.fetch.size}50</prop>
-				<prop key="hibernate.jdbc.batch_size">${hibernate.batch.size}10</prop>
-			</props>
-		</property>
-	</bean>
 
 	
 	<context:annotation-config />
 
 	<context:component-scan base-package="org.spinach.cart" />
 	
-	<!-- JPA Transaction Manager Configuration -->
-	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
-		<property name="entityManagerFactory" ref="entityManagerFactory" />
-	</bean>
-
 	<tx:annotation-driven />
 	
-	<!-- Repository Configuration -->
-	<jpa:repositories base-package="org.spinach.cart.repository"
-		entity-manager-factory-ref="entityManagerFactory"
-		transaction-manager-ref="transactionManager" />
+
 	
 	<!-- Dozer bean Mapper -->
 	<bean id="dtoMapper" class="org.dozer.DozerBeanMapper"/>
