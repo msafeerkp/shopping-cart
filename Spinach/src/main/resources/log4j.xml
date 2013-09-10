@@ -6,62 +6,53 @@
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss.SSS} %-5p: %c - %m%n" />
 		</layout>
 	</appender>
 
 	<!-- Appender for Application -->
-	<appender name="domain" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="/home/safeer/Domain.log" />
-		<param name="MaxFileSize" value="100KB" />
+	<appender name="library" class="org.apache.log4j.RollingFileAppender">
+		<param name="file" value="/home/safeer/library.log" />
+		<param name="MaxFileSize" value="5MB" />
 		<!-- Keep one backup file -->
-		<param name="MaxBackupIndex" value="1" />
+		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss.SSS} %-5p: %c - %m%n" />
 		</layout>
 	</appender>
 
 	<!-- Appender for 3rdparty Application -->
 	<appender name="application" class="org.apache.log4j.RollingFileAppender">
-		<param name="file" value="/home/safeer/Application.log" />
-		<param name="MaxFileSize" value="100KB" />
+		<param name="file" value="/home/safeer/application.log" />
+		<param name="MaxFileSize" value="5MB" />
 		<!-- Keep one backup file -->
-		<param name="MaxBackupIndex" value="1" />
+		<param name="MaxBackupIndex" value="10" />
 		<layout class="org.apache.log4j.PatternLayout">
-			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
+			<param name="ConversionPattern" value="%d{dd MMM yyyy HH:mm:ss.SSS} %-5p: %c - %m%n" />
 		</layout>
 	</appender>
 
-	<!-- Application Loggers -->
-	<logger name="org.spinach.cart.domain">
+	<!-- Library Loggers -->
+	<logger name="org.springframework">
 		<level value="info" />
-		<appender-ref ref="domain" />
+		<appender-ref ref="library" />
 	</logger>
 
-	<!-- 3rdparty Loggers -->
-	<logger name="org.springframework.core">
+	<!-- 3rdparty Library Loggers -->
+	<logger name="org.jboss.resteasy">
 		<level value="info" />
-		<appender-ref ref="application" />
+		<appender-ref ref="library" />
 	</logger>
 
-	<logger name="org.springframework.beans">
-		<level value="info" />
-		<appender-ref ref="application" />
-	</logger>
-
-	<logger name="org.springframework.context">
-		<level value="info" />
-		<appender-ref ref="application" />
-	</logger>
-
-	<logger name="org.springframework.web">
-		<level value="info" />
+	<!-- Library Loggers -->
+	<logger name="org.spinach.cart">
+		<level value="debug" />
 		<appender-ref ref="application" />
 	</logger>
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="warn" />
+		<priority value="info" />
 		<appender-ref ref="console" />
 	</root>
 

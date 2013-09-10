@@ -1,8 +1,7 @@
 package org.spinach.cart.data.entities;
 
-import javax.annotation.Resource;
-
-import org.spinach.cart.data.vo.Address;
+import org.spinach.cart.data.vo.AddressVO;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
@@ -11,11 +10,13 @@ import org.springframework.data.mongodb.core.mapping.Document;
  *
  */
 
-@Document(collection="productStore")
-public class ProductStore {
+@Document(collection="product_store")
+public class ProductStoreEntity {
 	
+	@Indexed(unique=true)
 	private String name;
-	private Address address;
+	
+	private AddressVO address;
 	
 	public String getName() {
 		return name;
@@ -23,10 +24,10 @@ public class ProductStore {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Address getAddress() {
+	public AddressVO getAddress() {
 		return address;
 	}
-	public void setAddress(Address address) {
+	public void setAddress(AddressVO address) {
 		this.address = address;
 	}
 	

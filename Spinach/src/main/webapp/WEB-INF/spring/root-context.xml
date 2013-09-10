@@ -19,16 +19,26 @@
 	</bean>
 
 	<!-- MongoDB configuration -->
+
+	<bean id="mongoServerAddress" class="com.mongodb.ServerAddress">
+		<constructor-arg value="localhost" />
+		<constructor-arg value="27017" />
+	</bean>
+
+	<bean id="mongoOptions" class="com.mongodb.MongoOptions">
+		<property name="safe" value="true" />
+	</bean>
+
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg>
 			<bean class="com.mongodb.Mongo">
-				<constructor-arg value="localhost" />
-				<constructor-arg value="27017" />
+				<constructor-arg ref="mongoServerAddress" />
+				<constructor-arg ref="mongoOptions" />
 			</bean>
 		</constructor-arg>
 		<constructor-arg value="cart" />
 	</bean>
-
+	
 	<mongo:repositories base-package="org.spinach.cart.data.repositories" />
 
 	<context:annotation-config />
@@ -36,6 +46,6 @@
 	<context:component-scan base-package="org.spinach.cart" />
 
 	<!-- Dozer bean Mapper -->
-	<bean id="dtoMapper" class="org.dozer.DozerBeanMapper" />
+	<bean id="mapper" class="org.dozer.DozerBeanMapper" />
 
 </beans>
