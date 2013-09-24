@@ -45,7 +45,7 @@
 
 	<context:component-scan base-package="org.spinach.cart" />
 
-	<!-- Dozer bean Mapper -->
-	<bean id="mapper" class="org.dozer.DozerBeanMapper" />
+	<!-- Model Mapper bean-->
+	<bean id="mapper" class="org.modelmapper.ModelMapper" />
 
 </beans>

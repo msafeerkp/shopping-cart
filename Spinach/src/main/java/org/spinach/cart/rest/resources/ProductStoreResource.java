@@ -4,6 +4,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -25,7 +26,7 @@ public class ProductStoreResource {
 	ProductStoreService productStoreService;
 
 	/**
-	 * Handle a request to create the Product Store.
+	 * Handle a request to create Product Store.
 	 * 
 	 * @param productStoreDTO
 	 * @return
@@ -45,15 +46,46 @@ public class ProductStoreResource {
 
 		} catch (CartServiceException | NullPointerException exception) {
 
-			logger.error("failed to create the Product Resource. Reason - ",
+			logger.error("failed to create Product Resource. Reason - ",
 					exception.getMessage(), exception);
 
-			return Response.status(Response.Status.INTERNAL_SERVER_ERROR)
+			return Response.status(Response.Status.NOT_ACCEPTABLE)
 					.entity("NOT_CREATED").build();
 
 		}
-		//ToDo
+		// ToDo
 		return Response.status(Response.Status.CREATED).entity(persistedDTO)
 				.build();
+	}
+
+	/**
+	 * Handle a request to update Product Store.
+	 * 
+	 * @param productStoreDTO
+	 * @return
+	 */
+	@PUT
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Response updateProductStore(ProductStoreDTO productStoreDTO) {
+
+		ProductStoreDTO updatedStoreDTO = null;
+
+		try {
+			updatedStoreDTO = productStoreService
+					.updateProductStore(productStoreDTO);
+
+		} catch (CartServiceException | NullPointerException exception) {
+
+			logger.error("failed to update Product Resource. Reason - ",
+					exception.getMessage(), exception);
+
+			return Response.status(Response.Status.NOT_ACCEPTABLE)
+					.entity("NOT_UPDATED").build();
+		}
+
+		return Response.status(Response.Status.OK).entity(updatedStoreDTO)
+				.build();
+
 	}
 }

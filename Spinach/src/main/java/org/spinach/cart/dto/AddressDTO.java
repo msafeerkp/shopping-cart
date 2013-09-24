@@ -6,52 +6,53 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlType;
 
 /**
- *  
+ * 
  * @author safeer
- *
+ * 
  */
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name="address")
-public class AddressDTO extends CartDTO{
-	
-	@XmlElement(name="phone")
+@XmlType(name = "address")
+public class AddressDTO {
+
+	@XmlElement(name = "phone")
 	protected String phone;
-	
-	@XmlElement(name="address")
+
+	@XmlElement(name = "address")
 	protected String address;
-	
-	@XmlElement(name="postal_code")
+
+	@XmlElement(name = "postal_code")
 	protected String postalCode;
-	
-	@XmlElement(name="city")
+
+	@XmlElement(name = "city")
 	protected String city;
-	
-	@XmlElement(name="country")
+
+	@XmlElement(name = "country")
 	protected String country;
-	
-	@XmlElement(name="state")
+
+	@XmlElement(name = "state")
 	protected String state;
-	
-	
+
 	public String getPhone() {
 		return phone;
 	}
+
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
+
 	public String getAddress() {
 		return address;
 	}
+
 	public void setAddress(String address) {
 		this.address = address;
 	}
-	
+
 	public String getPostalCode() {
 		return postalCode;
 	}
-	
+
 	public void setPostalCode(String postalCode) {
 		this.postalCode = postalCode;
 	}
@@ -59,22 +60,34 @@ public class AddressDTO extends CartDTO{
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
-	
+
 	public String getCountry() {
 		return country;
 	}
+
 	public void setCountry(String country) {
 		this.country = country;
 	}
-	
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
-	
+
+	@Override
+	public String toString() {
+
+		return String
+				.format("org.spinach.cart.dto.Address[phone=%s, address=%s, postalCode=%s, city=%s, country=%s, state=%s]",
+						phone, address, postalCode, city, country, state);
+
+	}
+
 }
