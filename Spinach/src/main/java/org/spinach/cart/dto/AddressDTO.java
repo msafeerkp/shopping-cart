@@ -14,7 +14,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "address")
 public class AddressDTO {
-
+	
+	@XmlElement(name = "address_id")
+	protected String addressId;
+	
 	@XmlElement(name = "phone")
 	protected String phone;
 
@@ -32,6 +35,14 @@ public class AddressDTO {
 
 	@XmlElement(name = "state")
 	protected String state;
+
+	public String getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(String addressId) {
+		this.addressId = addressId;
+	}
 
 	public String getPhone() {
 		return phone;

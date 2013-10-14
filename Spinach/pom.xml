@@ -9,6 +9,22 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
+	<repositories>
+		<repository>
+			<id>codelds</id>
+			<url>https://code.lds.org/nexus/content/groups/main-repo</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>maven-db-plugin-repo</id>
+			<name>maven db plugin repository</name>
+			<url>http://maven-db-plugin.googlecode.com/svn/maven/repo</url>
+			<layout>default</layout>
+
+		</pluginRepository>
+	</pluginRepositories>
+
 	<properties>
 
 		<java-version>1.7</java-version>
@@ -27,6 +43,8 @@
 		<jackson-annotations-version>2.2.0</jackson-annotations-version>
 		<javax.ws.rs-api-version>2.0</javax.ws.rs-api-version>
 		<jersey-version>2.2</jersey-version>
+		<hibernate-entitymanager-version>4.2.6.Final</hibernate-entitymanager-version>
+		<com.oracle-version>11.2.0.3</com.oracle-version>
 	</properties>
 
 	<dependencies>
@@ -58,6 +76,13 @@
 			<artifactId>spring-test</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-orm</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+
 
 		<!-- Logging -->
 
@@ -126,6 +151,19 @@
 			<groupId>org.modelmapper</groupId>
 			<artifactId>modelmapper</artifactId>
 			<version>${modelmapper-version}</version>
+		</dependency>
+
+		<!-- Oracle Database driver -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>${com.oracle-version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate-entitymanager-version}</version>
 		</dependency>
 
 
@@ -234,7 +272,47 @@
 					<mainClass>org.test.int1.Main</mainClass>
 				</configuration>
 			</plugin>
-
+			<plugin>
+				<groupId>com.googlecode</groupId>
+				<artifactId>maven-db-plugin</artifactId>
+				<version>1.4</version>
+				<configuration>
+					<adminDbConnectionSettings>
+						<jdbcDriver>oracle.jdbc.driver.OracleDriver</jdbcDriver>
+						<jdbcUrl>jdbc:oracle:thin:@//localhost:1521/orcl</jdbcUrl>
+						<userName>SYSTEM</userName>
+						<password>Welcome1</password>
+					</adminDbConnectionSettings>
+					<appDbConnectionSettings>
+						<jdbcDriver>oracle.jdbc.driver.OracleDriver</jdbcDriver>
+						<jdbcUrl>jdbc:oracle:thin:@//localhost:1521/orcl</jdbcUrl>
+						<userName>spinach</userName>
+						<password>spinach</password>
+					</appDbConnectionSettings>
+					 <sqlDelimiter>;</sqlDelimiter>
+					<dbCreateStatements>
+						CREATE USER spinach IDENTIFIED BY spinach DEFAULT TABLESPACE "USERS" TEMPORARY TABLESPACE "TEMP";
+						GRANT "DBA" TO spinach WITH ADMIN OPTION;
+					</dbCreateStatements>
+					
+					<dbDataScriptsDirectory>
+						<param>src/main/sql/data</param>
+					</dbDataScriptsDirectory>
+					<dbSchemaScriptsDirectory>
+						<param>src/main/sql/schema</param>
+					</dbSchemaScriptsDirectory>
+					<dbUpdateScriptsDirectory>
+						<param>src/main/sql/update</param>
+					</dbUpdateScriptsDirectory>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>com.oracle</groupId>
+						<artifactId>ojdbc6</artifactId>
+						<version>${com.oracle-version}</version>
+					</dependency>
+				</dependencies>
+			</plugin>
 		</plugins>
 	</build>
 </project>

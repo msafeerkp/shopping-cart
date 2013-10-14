@@ -11,6 +11,8 @@ import org.spinach.cart.dto.ProductStoreDTO;
 import org.spinach.cart.exception.CartServiceException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Test cases of Product Store Service.
@@ -29,13 +31,12 @@ public class ProductStoreServiceTest {
 	@Inject
 	ProductStoreRepository productStoreRepository;
 
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	@Before
 	public void setUp() {
 
-		productStoreRepository.deleteAll();
-
 		ProductStoreDTO productStoreDTO = new ProductStoreDTO();
-		productStoreDTO.setName("Dummy Store1");
+		productStoreDTO.setProductStoreName("Dummy Store1");
 		AddressDTO addressDTO = new AddressDTO();
 		addressDTO.setAddress("address");
 		addressDTO.setCity("city");
@@ -49,11 +50,12 @@ public class ProductStoreServiceTest {
 
 	}
 
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	@Test
 	public void testCreateProductStoreService() {
 
 		ProductStoreDTO productStoreDTO = new ProductStoreDTO();
-		productStoreDTO.setName("Dummy Store2");
+		productStoreDTO.setProductStoreName("Dummy Store2");
 		AddressDTO addressDTO = new AddressDTO();
 		addressDTO.setAddress("address");
 		addressDTO.setCity("city");
@@ -67,6 +69,7 @@ public class ProductStoreServiceTest {
 
 	}
 
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	@Test(expected = CartServiceException.class)
 	public void testCreateProductStoreServiceWithNull() {
 
@@ -76,11 +79,12 @@ public class ProductStoreServiceTest {
 
 	}
 
+	@Transactional(propagation=Propagation.REQUIRES_NEW)
 	@Test
 	public void testUpdateProductStore() {
 
 		ProductStoreDTO productStoreDTO = new ProductStoreDTO();
-		productStoreDTO.setName("Dummy Store1");
+		productStoreDTO.setProductStoreName("Dummy Store1");
 		AddressDTO addressDTO = new AddressDTO();
 		addressDTO.setAddress("address");
 		addressDTO.setCity("city");

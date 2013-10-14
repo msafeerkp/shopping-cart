@@ -14,30 +14,29 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "product_store")
 public class ProductStoreDTO {
 
-	@XmlElement(name = "id")
-	protected String id;
+	@XmlElement(name = "product_store_id")
+	protected String productStoreid;
 	
-	@XmlElement(name = "name")
-	protected String name;
+	@XmlElement(name = "product_store_name")
+	protected String productStoreName;
 
 	@XmlElement(name = "address")
 	protected AddressDTO address;
 
-	
-	public String getId() {
-		return id;
+	public String getProductStoreid() {
+		return productStoreid;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setProductStoreid(String productStoreid) {
+		this.productStoreid = productStoreid;
 	}
 
-	public String getName() {
-		return name;
+	public String getProductStoreName() {
+		return productStoreName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProductStoreName(String productStoreName) {
+		this.productStoreName = productStoreName;
 	}
 
 	public AddressDTO getAddress() {
@@ -53,7 +52,7 @@ public class ProductStoreDTO {
 
 		return String
 				.format("org.spinach.cart.data.entities.ProductStoreEntity[id=%s, name=%s, address=%s]",
-						id, name, address.toString());
+						productStoreid, productStoreName, address.toString());
 
 	}
 

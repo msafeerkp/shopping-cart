@@ -1,18 +1,42 @@
-package org.spinach.cart.data.vo;
+package org.spinach.cart.data.entities;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+import org.spinach.cart.util.UUIDGenerator;
 
 /**
  * 
  * @author safeer
  * 
  */
-public class AddressVO {
+@Entity(name="SC_ADDRESS")
+public class AddressEntity {
 
+	
+	@Id
+	@Column(name="ADDRESS_ID")
+	private String addressId;
+	
 	private String phone;
 	private String address;
 	private String postalCode;
 	private String city;
 	private String country;
 	private String state;
+
+	public AddressEntity() {
+		this.addressId = UUIDGenerator.generate();
+	}
+	
+	public String getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(String addressId) {
+		this.addressId = addressId;
+	}
 
 	public String getPhone() {
 		return phone;

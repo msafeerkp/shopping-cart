@@ -1,8 +1,8 @@
-data.source.driver.class=com.mysql.jdbc.Driver
-data.source.url=jdbc:mysql://localhost:3306/Spinach
+data.source.driver.class=oracle.jdbc.driver.OracleDriver
+data.source.url=jdbc:oracle:thin:@//localhost:1521/orcl 
 data.source.user.name=spinach
 data.source.user.password=spinach
-hibernate.dialect=org.hibernate.dialect.MySQLDialect
+hibernate.dialect=org.hibernate.dialect.OracleDialect
 hibernate.show.sql=true
 hibernate.max.fetch.size=3
 hibernate.fetch.size=50

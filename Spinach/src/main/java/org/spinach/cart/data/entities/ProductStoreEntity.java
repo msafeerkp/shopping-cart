@@ -1,9 +1,13 @@
 package org.spinach.cart.data.entities;
 
-import org.spinach.cart.data.vo.AddressVO;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import org.spinach.cart.util.UUIDGenerator;
 
 /**
  * 
@@ -11,38 +15,45 @@ import org.springframework.data.mongodb.core.mapping.Document;
  * 
  */
 
-@Document(collection = "product_store")
+@Entity(name="SC_PRODUCT_STORE")
 public class ProductStoreEntity {
 
 	@Id
-	private String id;
+	@Column(name="PRODUCT_STORE_ID")
+	private String productStoreId;
 
-	@Indexed(unique = true)
-	private String name;
+	@Column(name="PRODUCT_STORE_NAME",unique=true, nullable=false)
+	private String productStoreName;
 
-	private AddressVO address;
+	@OneToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="ADDRESS_ID")
+	private AddressEntity address;
 
-	public String getId() {
-		return id;
+	public ProductStoreEntity() {
+		this.productStoreId = UUIDGenerator.generate();
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public String getProductStoreId() {
+		return productStoreId;
 	}
 
-	public String getName() {
-		return name;
+	public void setProductStoreId(String productStoreId) {
+		this.productStoreId = productStoreId;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public String getProductStoreName() {
+		return productStoreName;
 	}
 
-	public AddressVO getAddress() {
+	public void setProductStoreName(String productStoreName) {
+		this.productStoreName = productStoreName;
+	}
+
+	public AddressEntity getAddress() {
 		return address;
 	}
 
-	public void setAddress(AddressVO address) {
+	public void setAddress(AddressEntity address) {
 		this.address = address;
 	}
 
@@ -50,7 +61,7 @@ public class ProductStoreEntity {
 	public String toString() {
 
 		return String.format("org.spinach.cart.data.entities.ProductStoreEntity[id=%s, name=%s, address=%s]",
-				id, name, address.toString());
+				productStoreId, productStoreName, address.toString());
 
 	}
 

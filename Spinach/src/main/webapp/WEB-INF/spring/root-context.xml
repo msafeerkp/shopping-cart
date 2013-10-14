@@ -2,15 +2,15 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:security="http://www.springframework.org/schema/security"
-	xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
 		http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context-3.2.xsd
 		http://www.springframework.org/schema/security
-        http://www.springframework.org/schema/security/spring-security.3.1.xsd
-        http://www.springframework.org/schema/data/mongo
-    	http://www.springframework.org/schema/data/mongo/spring-mongo-1.2.xsd">
+        http://www.springframework.org/schema/security/spring-security.3.2.xsd
+       	http://www.springframework.org/schema/tx
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<bean
@@ -18,34 +18,45 @@
 		<property name="location" value="classpath:properties/data.source.porperties" />
 	</bean>
 
-	<!-- MongoDB configuration -->
-
-	<bean id="mongoServerAddress" class="com.mongodb.ServerAddress">
-		<constructor-arg value="localhost" />
-		<constructor-arg value="27017" />
+	<!-- Database Configuration -->
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${data.source.driver.class}" />
+		<property name="url" value="${data.source.url}" />
+		<property name="username" value="${data.source.user.name}" />
+		<property name="password" value="${data.source.user.password}" />
 	</bean>
 
-	<bean id="mongoOptions" class="com.mongodb.MongoOptions">
-		<property name="safe" value="true" />
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"/>
+		</property>
+		<!-- <property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml"></property> -->
+		<property name="packagesToScan" value="org.spinach.cart.data" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.dialect">${hibernate.dialect}</prop>
+				<prop key="hibernate.show_sql">${hibernate.show.sql}</prop>
+				<prop key="hibernate.max_fetch_depth">${hibernate.max.fetch.size}</prop>
+				<prop key="hibernate.jdbc.fetch_size">${hibernate.fetch.size}</prop>
+				<prop key="hibernate.jdbc.batch_size">${hibernate.batch.size}</prop>
+			</props>
+		</property>
 	</bean>
 
-	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
-		<constructor-arg>
-			<bean class="com.mongodb.Mongo">
-				<constructor-arg ref="mongoServerAddress" />
-				<constructor-arg ref="mongoOptions" />
-			</bean>
-		</constructor-arg>
-		<constructor-arg value="cart" />
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
+
+	<tx:annotation-driven />
 	
-	<mongo:repositories base-package="org.spinach.cart.data.repositories" />
-
 	<context:annotation-config />
 
 	<context:component-scan base-package="org.spinach.cart" />
 
-	<!-- Model Mapper bean-->
+	<!-- Model Mapper bean -->
 	<bean id="mapper" class="org.modelmapper.ModelMapper" />
 
 </beans>

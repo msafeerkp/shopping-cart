@@ -1,9 +1,8 @@
 package org.spinach.cart.data.repositories;
 
 import org.spinach.cart.data.entities.ProductStoreEntity;
-import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface ProductStoreRepository extends MongoRepository<ProductStoreEntity, Long>{
+public interface ProductStoreRepository extends GenericRepository<ProductStoreEntity, String>{
 	
 	/**
 	 * Find the Product Store by Name. 
